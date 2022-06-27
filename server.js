@@ -39,18 +39,37 @@ app.get("/game/start", function (req, res) {
         solution = solve(arr[l], arr[k]);
         if (solution === 1) count++;
       }
-      array.push("player_" + (l + 1) + ": " + count);
+      array.push(count);
     }
     return array;
   }
 
   results = [];
+  lists = [0, 0, 0, 0];
   for (i = 0; i < 50; i++) {
     attempt = [];
+    list = [];
     for (j = 0; j < 4; j++) {
       attempt.push(generateRand());
     }
-    results.push(genResult(attempt));
+    input = {
+      player_1: attempt[0],
+      player_2: attempt[1],
+      player_3: attempt[2],
+      player_4: attempt[3],
+    };
+
+    list = genResult(attempt);
+    for (q = 0; q < 4; q++) lists[q] = lists[q] + list[q];
+
+    
+    output = {
+      player_1: lists[0],
+      player_2: lists[1],
+      player_3: lists[2],
+      player_4: lists[3],
+    };
+    results.push({ input, output });
   }
 
   res.status(200).send({ results });
