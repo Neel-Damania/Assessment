@@ -33,10 +33,10 @@ app.get("/game/start", function (req, res) {
     let n = arr.length;
     let array = [];
 
-    for (l = 0; l < n; l++) {
+    for (let i = 0; i < n; i++) {
       let count = 0;
-      for (k = 0; k < n; k++) {
-        solution = solve(arr[l], arr[k]);
+      for (let j = 0; j < n; j++) {
+        solution = solve(arr[i], arr[j]);
         if (solution === 1) count++;
       }
       array.push(count);
@@ -60,16 +60,17 @@ app.get("/game/start", function (req, res) {
     };
 
     list = genResult(attempt);
-    for (q = 0; q < 4; q++) lists[q] = lists[q] + list[q];
+    for (let k = 0; k < 4; k++) lists[k] = lists[k] + list[k];
 
-    
     output = {
       player_1: lists[0],
       player_2: lists[1],
       player_3: lists[2],
       player_4: lists[3],
     };
+
     results.push({ input, output });
+
   }
 
   res.status(200).send({ results });
